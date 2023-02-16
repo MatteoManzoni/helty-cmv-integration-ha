@@ -1,0 +1,103 @@
+"""Platform for sensor integration."""
+from __future__ import annotations
+
+from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
+from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.const import TEMP_CELSIUS
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
+from .const import (
+    DOMAIN,
+    ATTRIBUTION
+)
+
+from homeassistant.const import (
+    TEMPERATURE,
+    TEMP_CELSIUS,
+    DEVICE_CLASS_HUMIDITY,
+    PERCENTAGE,
+)
+
+
+async def async_setup_entry(hass, config_entry, async_add_entities):
+    cmv = hass.data[DOMAIN][config_entry.entry_id]
+    async_add_entities([CMVInsideTemperature(cmv), CMVOutsideTemperature(cmv), CMVInsideHumidity(cmv)], True)
+
+
+class CMVBaseSensor(SensorEntity):
+    _attr_has_entity_name = False
+
+    def __init__(self, cmv):
+        self._cmv = cmv
+        self._state = None
+
+    @property
+    def device_info(self):
+        return DeviceInfo(
+            identifiers={(DOMAIN, self._cmv.cmv_id)},
+            name=self._cmv.name,
+            manufacturer="Helty",
+            model="Flow",
+        )
+
+    @property
+    def available(self) -> bool:
+        return self._cmv.online
+
+
+class CMVInsideTemperature(CMVBaseSensor):
+    """Representation of a Sensor."""
+
+    device_class = TEMPERATURE
+    _attr_native_unit_of_measurement = TEMP_CELSIUS
+
+    def __init__(self, cmv):
+        super().__init__(cmv)
+        self._attr_unique_id = f"{self._cmv.cmv_id}_inside_temp"
+        self._attr_name = f"{self._cmv.name} Inside Temperature"
+
+    @property
+    def native_value(self) -> float | None:
+        return self._state
+
+    async def async_update(self) -> None:
+        self._state = await self._cmv.get_cmv_indoor_air_temperature()
+
+
+class CMVOutsideTemperature(CMVBaseSensor):
+    """Representation of a Sensor."""
+
+    device_class = TEMPERATURE
+    _attr_native_unit_of_measurement = TEMP_CELSIUS
+
+    def __init__(self, cmv):
+        super().__init__(cmv)
+        self._attr_unique_id = f"{self._cmv.cmv_id}_outside_temp"
+        self._attr_name = f"{self._cmv.name} Outside Temperature"
+
+    @property
+    def native_value(self) -> float | None:
+        return self._state
+
+    async def async_update(self) -> None:
+        self._state = await self._cmv.get_cmv_outdoor_air_temperature()
+
+
+class CMVInsideHumidity(CMVBaseSensor):
+    """Representation of a Sensor."""
+
+    device_class = DEVICE_CLASS_HUMIDITY
+    _attr_native_unit_of_measurement = PERCENTAGE
+
+    def __init__(self, cmv):
+        super().__init__(cmv)
+        self._attr_unique_id = f"{self._cmv.cmv_id}_inside_humidity"
+        self._attr_name = f"{self._cmv.name} Inside Humidity"
+
+    @property
+    def native_value(self) -> float | None:
+        return self._state
+
+    async def async_update(self) -> None:
+        self._state = await self._cmv.get_cmv_indoor_humidity()

@@ -1,0 +1,16 @@
+{
+  "domain": "heltycmv",
+  "name": "Helty CMV",
+  "integration_type": "device",
+  "codeowners": [
+    "@MatteoManzoni"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://www.home-assistant.io/integrations/heltycmv",
+  "homekit": {},
+  "iot_class": "local_polling",
+  "requirements": [],
+  "ssdp": [],
+  "zeroconf": []
+}
