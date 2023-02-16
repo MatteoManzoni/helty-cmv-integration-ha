@@ -8,7 +8,7 @@ The following platform will be installed:
 
 Platform | Description
 -- | --
-`sensor` | Show info from the unit (indoor/outdoor temp and humidity implemented, CO2 and VOC can be implemented for specific modes)
+`sensor` | Show info from the unit (indoor/outdoor temp and humidity implemented, CO2 and VOC can be implemented for specific models)
 `switch` | Switch ON and OFF panel leds
 `climate` | Control of fan speed and presets
 
