@@ -1,7 +1,5 @@
 # Integration Blueprint
 
-[![License][license-shield]](LICENSE)
-
 **This integration is used to control and get data from Helty/Alpac CMV (Forced ventilations w/ heat exchanger), all models compatible with the "AirGuard" app should be compatible.**
 
 **This integration was created reverse engineering the raw TCP protocol used by the app, YMMV**
@@ -18,4 +16,4 @@ Platform | Description
 
 ## Helty if you see this, please give me the RFC of protocol :pray:
 
-***
+MIT Licensed
