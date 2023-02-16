@@ -1,5 +1,5 @@
 {
     "name": "Helty CMV Integration",
     "render_readme": true,
-    "homeassistant": "2022.2.0"
+    "homeassistant": "2023.2.0"
 }
