@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Any
 import logging
 
 from homeassistant.helpers.entity import DeviceInfo
@@ -6,6 +7,11 @@ from .const import (
     PRESET_BOOST,
     PRESET_NIGHT,
     PRESET_COOLING,
+    FAN_LOW,
+    FAN_MEDIUM,
+    FAN_HIGH,
+    FAN_HIGHEST,
+    FAN_OFF,
     DOMAIN
 )
 from homeassistant.components.fan import FanEntity, SUPPORT_SET_SPEED, SUPPORT_PRESET_MODE
@@ -62,8 +68,19 @@ class HeltyCMV(FanEntity):
         if not await self._cmv.set_cmv_mode(preset_mode):
             raise Exception("Cannot set {} preset mode".format(preset_mode))
 
+    async def async_turn_off(self, **kwargs: Any) -> None:
+        if not await self._cmv.set_cmv_mode(FAN_OFF):
+            raise Exception("Cannot set {} fan percentage to turn off fan".format(0))
+
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        if not await self._cmv.set_cmv_mode(FAN_LOW):
+            raise Exception("Cannot set {} fan percentage to turn off fan".format(0))
+
     async def async_update(self) -> None:
         cmv_state = await self._cmv.get_cmv_op_status()
         if cmv_state:
             self._attr_percentage = cmv_state.get("fan_mode", None)
             self._attr_preset_mode = cmv_state.get("preset", None)
+        else:
+            self._attr_percentage = None
+            self._attr_preset_mode = None
