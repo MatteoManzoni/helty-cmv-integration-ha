@@ -22,7 +22,7 @@ from homeassistant.const import (
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     cmv = hass.data[DOMAIN][config_entry.entry_id]
-    async_add_entities([CMVInsideTemperature(cmv), CMVOutsideTemperature(cmv), CMVInsideHumidity(cmv)], True)
+    async_add_entities([CMVIndoorTemperature(cmv), CMVOutdoorTemperature(cmv), CMVIndoorHumidity(cmv)], True)
 
 
 class CMVBaseSensor(SensorEntity):
@@ -46,7 +46,7 @@ class CMVBaseSensor(SensorEntity):
         return self._cmv.online
 
 
-class CMVInsideTemperature(CMVBaseSensor):
+class CMVIndoorTemperature(CMVBaseSensor):
     """Representation of a Sensor."""
 
     device_class = TEMPERATURE
@@ -54,8 +54,8 @@ class CMVInsideTemperature(CMVBaseSensor):
 
     def __init__(self, cmv):
         super().__init__(cmv)
-        self._attr_unique_id = f"{self._cmv.cmv_id}_inside_temp"
-        self._attr_name = f"{self._cmv.name} Inside Temperature"
+        self._attr_unique_id = f"{self._cmv.cmv_id}_indoor_temp"
+        self._attr_name = f"{self._cmv.name} Indoor Temperature"
 
     @property
     def native_value(self) -> float | None:
@@ -73,8 +73,8 @@ class CMVOutsideTemperature(CMVBaseSensor):
 
     def __init__(self, cmv):
         super().__init__(cmv)
-        self._attr_unique_id = f"{self._cmv.cmv_id}_outside_temp"
-        self._attr_name = f"{self._cmv.name} Outside Temperature"
+        self._attr_unique_id = f"{self._cmv.cmv_id}_outdoor_temp"
+        self._attr_name = f"{self._cmv.name} Outdoor Temperature"
 
     @property
     def native_value(self) -> float | None:
@@ -84,7 +84,7 @@ class CMVOutsideTemperature(CMVBaseSensor):
         self._state = await self._cmv.get_cmv_outdoor_air_temperature()
 
 
-class CMVInsideHumidity(CMVBaseSensor):
+class CMVIndoorHumidity(CMVBaseSensor):
     """Representation of a Sensor."""
 
     device_class = DEVICE_CLASS_HUMIDITY
@@ -92,8 +92,8 @@ class CMVInsideHumidity(CMVBaseSensor):
 
     def __init__(self, cmv):
         super().__init__(cmv)
-        self._attr_unique_id = f"{self._cmv.cmv_id}_inside_humidity"
-        self._attr_name = f"{self._cmv.name} Inside Humidity"
+        self._attr_unique_id = f"{self._cmv.cmv_id}_indoor_humidity"
+        self._attr_name = f"{self._cmv.name} Indoor Humidity"
 
     @property
     def native_value(self) -> float | None:
