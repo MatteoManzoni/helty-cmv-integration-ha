@@ -8,12 +8,10 @@ from .const import (
     PRESET_BOOST,
     PRESET_NIGHT,
     PRESET_COOLING,
-    PRESET_MANUAL,
     FAN_LOW,
     FAN_MEDIUM,
     FAN_HIGH,
     FAN_HIGHEST,
-    FAN_AUTO,
     MODE_CMDS,
     LED_OFF_CMD,
     LED_ON_CMD,
@@ -96,19 +94,19 @@ class HeltyCMV:
             if data[0] == "VMGO":
                 op_state_int = int(data[1])
             if op_state_int == 1:
-                return {"preset": PRESET_MANUAL, "fan_mode": FAN_LOW}
+                return {"preset": None, "fan_mode": FAN_LOW}
             elif op_state_int == 2:
-                return {"preset": PRESET_MANUAL, "fan_mode": FAN_MEDIUM}
+                return {"preset": None, "fan_mode": FAN_MEDIUM}
             elif op_state_int == 3:
-                return {"preset": PRESET_MANUAL, "fan_mode": FAN_HIGH}
+                return {"preset": None, "fan_mode": FAN_HIGH}
             elif op_state_int == 4:
-                return {"preset": PRESET_MANUAL, "fan_mode": FAN_HIGHEST}
+                return {"preset": None, "fan_mode": FAN_HIGHEST}
             elif op_state_int == 5:
-                return {"preset": PRESET_BOOST, "fan_mode": FAN_AUTO}
+                return {"preset": PRESET_BOOST, "fan_mode": None}
             elif op_state_int == 6:
-                return {"preset": PRESET_NIGHT, "fan_mode": FAN_AUTO}
+                return {"preset": PRESET_NIGHT, "fan_mode": None}
             elif op_state_int == 7:
-                return {"preset": PRESET_COOLING, "fan_mode": FAN_AUTO}
+                return {"preset": PRESET_COOLING, "fan_mode": None}
             else:
                 return None
         except Exception as e:

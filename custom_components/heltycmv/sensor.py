@@ -1,15 +1,10 @@
 """Platform for sensor integration."""
 from __future__ import annotations
 
-from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
+from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.const import TEMP_CELSIUS
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from .const import (
-    DOMAIN,
-    ATTRIBUTION
+    DOMAIN
 )
 
 from homeassistant.const import (
@@ -65,7 +60,7 @@ class CMVIndoorTemperature(CMVBaseSensor):
         self._state = await self._cmv.get_cmv_indoor_air_temperature()
 
 
-class CMVOutsideTemperature(CMVBaseSensor):
+class CMVOutdoorTemperature(CMVBaseSensor):
     """Representation of a Sensor."""
 
     device_class = TEMPERATURE

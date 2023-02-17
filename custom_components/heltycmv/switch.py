@@ -1,30 +1,13 @@
 from __future__ import annotations
-from datetime import timedelta
 from typing import Any
 
-import async_timeout
 import logging
 
-from homeassistant.const import TEMP_CELSIUS
 from homeassistant.helpers.entity import DeviceInfo
 from .const import (
-    FAN_LOW,
-    FAN_MEDIUM,
-    FAN_HIGH,
-    FAN_HIGHEST,
-    PRESET_BOOST,
-    PRESET_NIGHT,
-    PRESET_COOLING,
-    PRESET_MANUAL,
-    FAN_AUTO,
     DOMAIN
 )
 from homeassistant.components.switch import SwitchEntity
-from homeassistant.components.climate.const import (
-    HVAC_MODE_FAN_ONLY,
-    SUPPORT_FAN_MODE,
-    SUPPORT_PRESET_MODE
-)
 
 
 _LOGGER = logging.getLogger(__name__)
