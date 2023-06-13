@@ -1,4 +1,5 @@
 # Integration Blueprint
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/matteomanzoni)
 
 **This integration is used to control and get data from Helty/Alpac CMV (Forced ventilations w/ heat exchanger), all models compatible with the "AirGuard" app should be compatible.**
 
