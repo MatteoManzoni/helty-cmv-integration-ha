@@ -14,7 +14,7 @@ from .const import (
     FAN_OFF,
     DOMAIN
 )
-from homeassistant.components.fan import FanEntity, SUPPORT_SET_SPEED, SUPPORT_PRESET_MODE
+from homeassistant.components.fan import FanEntity, FanEntityFeature
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -31,7 +31,7 @@ class HeltyCMV(FanEntity):
         PRESET_NIGHT,
         PRESET_COOLING
         ]
-    _attr_supported_features = SUPPORT_SET_SPEED | SUPPORT_PRESET_MODE
+    _attr_supported_features = FanEntityFeature.SET_SPEED | FanEntityFeature.PRESET_MODE
     _attr_speed_count = 4
 
     _attr_has_entity_name = False
