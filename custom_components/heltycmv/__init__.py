@@ -8,7 +8,7 @@ from homeassistant.core import HomeAssistant
 from .const import DOMAIN
 from .cmv import HeltyCMV
 
-PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.FAN, Platform.SWITCH]
+PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.FAN, Platform.SWITCH, Platform.BUTTON]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

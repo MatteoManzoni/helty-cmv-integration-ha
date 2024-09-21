@@ -15,6 +15,7 @@ from .const import (
     MODE_CMDS,
     LED_OFF_CMD,
     LED_ON_CMD,
+    RESET_FILTER,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -141,5 +142,10 @@ class HeltyCMV:
 
     async def turn_cmv_leds_on(self):
         exec_result = self._execute_cmv_cmd(LED_ON_CMD)
+        if exec_result == "OK":
+            return True
+
+    async def reset_cmv_filters(self, mode):
+        exec_result = self._execute_cmv_cmd(RESET_FILTER)
         if exec_result == "OK":
             return True
