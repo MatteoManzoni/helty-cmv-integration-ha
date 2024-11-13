@@ -145,7 +145,7 @@ class HeltyCMV:
         if exec_result == "OK":
             return True
 
-    async def reset_cmv_filters(self, mode):
+    async def reset_cmv_filters(self):
         exec_result = self._execute_cmv_cmd(RESET_FILTER)
         if exec_result == "OK":
             return True
