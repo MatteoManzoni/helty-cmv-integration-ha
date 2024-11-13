@@ -40,4 +40,4 @@ class HeltyCMVResetFilter(ButtonEntity):
         return self._cmv.online
 
     async def async_press(self) -> None:
-        await self._cmv.reset_cmv_filters
+        await self._cmv.reset_cmv_filters()
