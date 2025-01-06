@@ -9,16 +9,13 @@ from .const import (
 
 from homeassistant.const import (
     TEMPERATURE,
-    TEMP_CELSIUS,
-    DEVICE_CLASS_HUMIDITY,
     PERCENTAGE,
+    # Import other necessary constants but leave out the problematic one
 )
-
 
 async def async_setup_entry(hass, config_entry, async_add_entities):
     cmv = hass.data[DOMAIN][config_entry.entry_id]
     async_add_entities([CMVIndoorTemperature(cmv), CMVOutdoorTemperature(cmv), CMVIndoorHumidity(cmv)], True)
-
 
 class CMVBaseSensor(SensorEntity):
     _attr_has_entity_name = False
@@ -40,12 +37,10 @@ class CMVBaseSensor(SensorEntity):
     def available(self) -> bool:
         return self._cmv.online
 
-
 class CMVIndoorTemperature(CMVBaseSensor):
     """Representation of a Sensor."""
-
     device_class = TEMPERATURE
-    _attr_native_unit_of_measurement = TEMP_CELSIUS
+    _attr_native_unit_of_measurement = '°C'
 
     def __init__(self, cmv):
         super().__init__(cmv)
@@ -59,12 +54,10 @@ class CMVIndoorTemperature(CMVBaseSensor):
     async def async_update(self) -> None:
         self._state = await self._cmv.get_cmv_indoor_air_temperature()
 
-
 class CMVOutdoorTemperature(CMVBaseSensor):
     """Representation of a Sensor."""
-
     device_class = TEMPERATURE
-    _attr_native_unit_of_measurement = TEMP_CELSIUS
+    _attr_native_unit_of_measurement = '°C'
 
     def __init__(self, cmv):
         super().__init__(cmv)
@@ -78,11 +71,8 @@ class CMVOutdoorTemperature(CMVBaseSensor):
     async def async_update(self) -> None:
         self._state = await self._cmv.get_cmv_outdoor_air_temperature()
 
-
 class CMVIndoorHumidity(CMVBaseSensor):
     """Representation of a Sensor."""
-
-    device_class = DEVICE_CLASS_HUMIDITY
     _attr_native_unit_of_measurement = PERCENTAGE
 
     def __init__(self, cmv):
