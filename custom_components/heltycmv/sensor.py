@@ -1,17 +1,15 @@
 """Platform for sensor integration."""
 from __future__ import annotations
 
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import SensorEntity, SensorDeviceClass
 from homeassistant.helpers.entity import DeviceInfo
 from .const import (
     DOMAIN
 )
 
 from homeassistant.const import (
-    TEMPERATURE,
-    TEMP_CELSIUS,
-    DEVICE_CLASS_HUMIDITY,
     PERCENTAGE,
+    UnitOfTemperature,
 )
 
 
@@ -44,8 +42,8 @@ class CMVBaseSensor(SensorEntity):
 class CMVIndoorTemperature(CMVBaseSensor):
     """Representation of a Sensor."""
 
-    device_class = TEMPERATURE
-    _attr_native_unit_of_measurement = TEMP_CELSIUS
+    device_class = SensorDeviceClass.TEMPERATURE
+    _attr_native_unit_of_measurement = UnitOfTemperature.CELSIUS
 
     def __init__(self, cmv):
         super().__init__(cmv)
@@ -63,8 +61,8 @@ class CMVIndoorTemperature(CMVBaseSensor):
 class CMVOutdoorTemperature(CMVBaseSensor):
     """Representation of a Sensor."""
 
-    device_class = TEMPERATURE
-    _attr_native_unit_of_measurement = TEMP_CELSIUS
+    device_class = SensorDeviceClass.TEMPERATURE
+    _attr_native_unit_of_measurement = UnitOfTemperature.CELSIUS
 
     def __init__(self, cmv):
         super().__init__(cmv)
@@ -82,7 +80,7 @@ class CMVOutdoorTemperature(CMVBaseSensor):
 class CMVIndoorHumidity(CMVBaseSensor):
     """Representation of a Sensor."""
 
-    device_class = DEVICE_CLASS_HUMIDITY
+    device_class = SensorDeviceClass.HUMIDITY
     _attr_native_unit_of_measurement = PERCENTAGE
 
     def __init__(self, cmv):
