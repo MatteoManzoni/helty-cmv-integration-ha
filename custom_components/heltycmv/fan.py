@@ -31,7 +31,7 @@ class HeltyCMV(FanEntity):
         PRESET_NIGHT,
         PRESET_COOLING
         ]
-    _attr_supported_features = FanEntityFeature.SET_SPEED | FanEntityFeature.PRESET_MODE
+    _attr_supported_features = FanEntityFeature.SET_SPEED | FanEntityFeature.PRESET_MODE | FanEntityFeature.TURN_ON | FanEntityFeature.TURN_OFF
     _attr_speed_count = 4
 
     _attr_has_entity_name = False
